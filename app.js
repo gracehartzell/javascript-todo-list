@@ -53,13 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (ev.keyCode === 13) {
                         if (editItem.value !== '') {
                             listItem.textContent = editItem.value;
+                            listItem.removeAttribute('class');
                             listItem.appendChild(liButton);
                             listItem.appendChild(editButton);
                         }
                     }
-                    
                 })
-                
             })
             
         
@@ -102,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (ev.keyCode === 13) {
                         if (editItem.value !== '') {
                             listItem.textContent = editItem.value;
+                            listItem.removeAttribute('class');
                             listItem.appendChild(liButton);
                             listItem.appendChild(editButton);
                         };
@@ -112,17 +112,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             listItem.appendChild(editButton);
-        };
-    }
-    else {
-        alert(`Don't you have something to do?`)
-    }
-});
-
-
-
-
-
+         };
+        }
+        else {
+            alert(`Don't you have something to do?`)
+        }
+    });
 
 
 });
