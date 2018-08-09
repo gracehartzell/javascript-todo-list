@@ -1,63 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const appTitle = document.createElement('h1');
-    appTitle.textContent = 'Todo List';
-    document.body.appendChild(appTitle);
-
-    const input = document.createElement('input');
-    input.setAttribute('class', 'input');
-    document.body.appendChild(input);
-    input.value = 'What should I do?';
+    appTitle = createAppTitle();
     
-    const list = document.createElement('ul');
-    document.body.appendChild(list);
+    input = createInputBox();
 
-     const button = document.createElement('button');
-    button.setAttribute('id', 'add_todo');
-    button.textContent = 'Add ToDo';
-    document.body.appendChild(button);
+    list = createUnorderedList()
 
+    button = createButton()
 
     // RESPONSIVE 
 
     clearInput = clearInitialInput();
 
+    clickButton = createClickResponse();
 
-    button.addEventListener('click', (ev) => {
-        if (input.value !== ''){
-            const listItem = document.createElement('LI');
-            listItem.textContent = input.value;
-       
-            liButton = createXButton(listItem)
-            editButton = createEditButton(listItem, liButton)
-        
-        
-            list.appendChild(listItem);
-        }
-        else  {
-            alert(`Don't you have something to do?`);
-        }
-    });
+    enterKeyPress = enterKeyResponse();
 
-
-input.addEventListener('keyup', (ev) => {
-    if (input.value !== '') {
-        const listItem = document.createElement('LI');
-        
-        if (ev.keyCode === 13) {
-            listItem.textContent = input.value;
-            list.appendChild(listItem);
-            
-            liButton = createXButton(listItem)
-            editButton = createEditButton(listItem, liButton)
-            
-            listItem.appendChild(editButton);
-        };
-    }
-    else {
-        alert(`Don't you have something to do?`)
-    }
-});
 
 
 
@@ -67,15 +25,89 @@ input.addEventListener('keyup', (ev) => {
 
 
 // FUNCTIONS FOR ELEMENTS: 
+    function createButton() {
+        let button = document.createElement('button');
+        button.setAttribute('id', 'add_todo');
+        button.textContent = 'Add ToDo';
+        document.body.appendChild(button);
+        
+        return button;
+    };
+
+    function createAppTitle() {
+        let appTitle = document.createElement('h1');
+        appTitle.textContent = 'Todo List';
+        document.body.appendChild(appTitle);
+        
+        return appTitle;
+    };
+
+    function createInputBox() {
+        let input = document.createElement('input');
+        input.setAttribute('class', 'input');
+        document.body.appendChild(input);
+        input.value = 'What should I do?';
+        
+        return input;
+    };
+
+    function createUnorderedList() {
+        let list = document.createElement('ul');
+        document.body.appendChild(list);
+        
+        return list;
+    }
+
+
     function clearInitialInput() {
         input.addEventListener('click', (ev) => {
             input.value = '';
         });
+    };
+
+    // function enterPress
+    function createClickResponse(listItem) {
+        button.addEventListener('click', (ev) => {
+            if (input.value !== '') {
+                const listItem = document.createElement('LI');
+                listItem.textContent = input.value;
+        
+                xButton = createXButton(listItem)
+                editButton = createEditButton(listItem, xButton)
+            
+            
+                list.appendChild(listItem);
+            }
+            else  {
+                alert(`Don't you have something to do?`);
+            };
+        });
+    };
+
+
+    function enterKeyResponse() {
+        input.addEventListener('keyup', (ev) => {
+            if (input.value !== '') {
+                const listItem = document.createElement('LI');
+                
+                if (ev.keyCode === 13) {
+                    listItem.textContent = input.value;
+                    list.appendChild(listItem);
+                    
+                    xButton = createXButton(listItem)
+                    editButton = createEditButton(listItem, xButton)
+                    
+                    listItem.appendChild(editButton);
+                };
+            }
+            else {
+                alert(`Don't you have something to do?`)
+            }
+        });
     }
 
 
-
-    function createEditButton(listItem, liButton){
+    function createEditButton(listItem, xButton){
         // create button
         const editButton = document.createElement('button');
         editButton.textContent = 'Edit'
@@ -93,7 +125,7 @@ input.addEventListener('keyup', (ev) => {
                     if (editItem.value !== '') {
                         listItem.textContent = editItem.value;
                         listItem.removeAttribute('class');
-                        listItem.appendChild(liButton);
+                        listItem.appendChild(xButton);
                         listItem.appendChild(editButton);
                     };
                 };
@@ -102,24 +134,22 @@ input.addEventListener('keyup', (ev) => {
         return editButton;
     }
 
+
     function createXButton(listItem) {
         // create x button 
-        const liButton = document.createElement('button');
-        liButton.textContent = ' X '
-        liButton.style.backgroundColor = '#FF6666';
-        liButton.style.cssFloat = 'right';
-        liButton.style.padding = '4px 4px';
-        listItem.appendChild(liButton);
+        const xButton = document.createElement('button');
+            xButton.textContent = ' X '
+            xButton.style.backgroundColor = '#FF6666';
+            xButton.style.cssFloat = 'right';
+            xButton.style.padding = '4px 4px';
+        listItem.appendChild(xButton);
         
         //  button events 
-        liButton.addEventListener('click', (ev) => {
+        xButton.addEventListener('click', (ev) => {
             listItem.setAttribute('class','completed');
         });
-        return liButton;
+        return xButton;
     };
-
-
-
 
 
 });
